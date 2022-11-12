@@ -1,4 +1,4 @@
-export const loginUser = (user) => fetch('http://localhost:8088/login', {
+export const loginUser = (user) => fetch('http://localhost:3000/login', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ export const loginUser = (user) => fetch('http://localhost:8088/login', {
   }),
 }).then((res) => res.json());
 
-export const registerUser = (newUser) => fetch('http://localhost:8088/register', {
+export const registerUser = (newUser) => fetch('http://localhost:3000/register', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',

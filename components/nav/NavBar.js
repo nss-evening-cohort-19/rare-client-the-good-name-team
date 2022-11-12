@@ -22,7 +22,7 @@ function AppNavBar({ token, setToken }) {
             {token ? (
               <>
                 <Link passHref href="/">
-                  <Nav.Link>Posts</Nav.Link>
+                  <Nav.Link>All Posts</Nav.Link>
                 </Link>
                 <Link passHref href="/categories/allCategories">
                   <Nav.Link>Category Manager</Nav.Link>
