@@ -37,7 +37,7 @@ export default function AllCategoriesPage({ categoryObj, onUpdate }) {
             category?.map((categories) => (
               <tr>
                 <td> <Button>Edit</Button> <Button variant="danger" onClick={deleteSingleCategory}>Delete</Button> </td>
-                <Link href={`/posts/category/${categories.id}`} passHref>
+                <Link href={`/categories/${categories.id}`} passHref>
                   <td>{categories.label}</td>
                 </Link>
               </tr>
