@@ -3,11 +3,18 @@ import { Button } from 'react-bootstrap';
 import Link from 'next/link';
 import { React, useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { getAllCategories } from '../../api/categoryData';
+import PropTypes from 'prop-types';
+import { getAllCategories, deleteCategory } from '../../api/categoryData';
 import CategoryForm from '../../components/CategoryForm';
 
-export default function AllCategoriesPage() {
+export default function AllCategoriesPage({ categoryObj, onUpdate }) {
   const [category, setCategory] = useState([]);
+
+  const deleteSingleCategory = () => {
+    if (window.confirm(`Delete ${categoryObj.label}?`)) {
+      deleteCategory(categoryObj.id).then(() => onUpdate());
+    }
+  };
 
   const getCategories = () => {
     getAllCategories(category.id).then(setCategory);
@@ -25,17 +32,11 @@ export default function AllCategoriesPage() {
       <CategoryForm refresh={refresh} />
       <h2>Categories</h2>
       <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th> </th>
-            <th> </th>
-          </tr>
-        </thead>
         <tbody>
           {
             category?.map((categories) => (
               <tr>
-                <td> <Button>Delete</Button> <Button>Edit</Button> </td>
+                <td> <Button>Edit</Button> <Button variant="danger" onClick={deleteSingleCategory}>Delete</Button> </td>
                 <Link href={`/posts/category/${categories.id}`} passHref>
                   <td>{categories.label}</td>
                 </Link>
@@ -47,3 +48,11 @@ export default function AllCategoriesPage() {
     </>
   );
 }
+
+AllCategoriesPage.propTypes = {
+  categoryObj: PropTypes.shape({
+    id: PropTypes.string,
+    label: PropTypes.string,
+  }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
+};

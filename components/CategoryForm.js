@@ -41,10 +41,10 @@ function CategoryForm({ categoryObj, refresh }) {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3">
-        <Form.Label>Create a New Category</Form.Label>
+        <Form.Label>Create a new category</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Create a New Category"
+          placeholder="Add text"
           name="label"
           value={formInput.label}
           onChange={handleChange}
