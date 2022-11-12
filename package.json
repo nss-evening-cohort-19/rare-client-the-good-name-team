@@ -1,8 +1,8 @@
 {
-  "name": "rare",
+  "name": "rare-the-good-name-team",
   "private": true,
   "version": "1.0.0",
-  "author": "Kenneth Chittaphong",
+  "author": "Nick, Cody, Tatiana, Kenneth",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
