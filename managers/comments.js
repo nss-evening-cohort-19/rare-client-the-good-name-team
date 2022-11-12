@@ -1,6 +1,9 @@
 export const getCommentsId = (id) => fetch(`http://localhost:8088/comments/${id}`)
   .then((res) => res.json());
 
+export const getCommentByPostId = (id) => fetch(`http://localhost:8088/comments?post_id/${id}`)
+  .then((res) => res.json());
+
 export const getComments = () => fetch('http://localhost:8088/comments')
   .then((res) => res.json());
 
@@ -20,6 +23,6 @@ export const updateComment = (comment) => fetch(`http://localhost:8088/comments/
   body: JSON.stringify(comment),
 });
 
-export const releaseComment = (commentId) => fetch(`http://localhost:8088/comments/${commentId}`, {
+export const deleteComment = (commentId) => fetch(`http://localhost:8088/comments/${commentId}`, {
   method: 'DELETE',
 });
