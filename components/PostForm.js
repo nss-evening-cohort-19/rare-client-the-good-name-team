@@ -10,13 +10,11 @@ import { createPost, updatePost } from '../api/postData';
 const initialState = {
   user_id: null,
   category_id: null,
-  category: '',
   title: '',
   publication_date: new Date().toLocaleDateString(),
   image_url: '',
   content: '',
-  approved: true,
-  reaction_id: null,
+  approved: 1,
 };
 
 export default function PostForm({ obj }) {
@@ -74,7 +72,7 @@ PostForm.propTypes = {
     publication_date: PropTypes.string,
     image_url: PropTypes.string,
     content: PropTypes.string,
-    approved: PropTypes.bool,
+    approved: PropTypes.number,
   }),
 };
 
