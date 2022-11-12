@@ -1,10 +1,10 @@
 import React from 'react';
 import PostForm from '../../components/PostForm';
 
-function newPost() {
+export default function NewPost() {
   return (
-    <PostForm obj={{}} />
+    <div className="create-form" style={{ height: '45rem', padding: '10%' }}>
+      <PostForm />
+    </div>
   );
 }
-
-export default newPost;
