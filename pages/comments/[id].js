@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Card, Col, Container, Row,
 } from 'react-bootstrap';
-import { getCommentByPostId } from '../../managers/commentData';
+import { getCommentByPostId } from '../../managers/comments';
 // import { getPostById } from '../../managers/posts';
 
 export default function ViewComments() {

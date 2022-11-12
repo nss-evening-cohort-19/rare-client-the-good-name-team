@@ -24,11 +24,6 @@ function CommentsCard({ commentsObj, onUpdate }) {
             VIEW
           </Button>
         </Link>
-        {/* <Link href={`/campaigns/edit/${postsObj.firebaseKey}`} passHref>
-          <Button size="sm" variant="dark">
-            EDIT
-          </Button>
-        </Link> */}
         <Button size="sm" variant="danger" onClick={deletThisComment} className="m-2">
           DELETE
         </Button>
