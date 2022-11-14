@@ -1,20 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button } from 'react-bootstrap';
-import Link from 'next/link';
 import { React, useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import PropTypes from 'prop-types';
 import { getAllCategories, deleteCategory } from '../../api/categoryData';
 import CategoryForm from '../../components/CategoryForm';
 
-export default function AllCategoriesPage({ categoryObj, onUpdate }) {
+export default function AllCategoriesPage() {
   const [category, setCategory] = useState([]);
-
-  const deleteSingleCategory = () => {
-    if (window.confirm(`Delete ${categoryObj.label}?`)) {
-      deleteCategory(categoryObj.id).then(() => onUpdate());
-    }
-  };
 
   const getCategories = () => {
     getAllCategories(category.id).then(setCategory);
@@ -29,30 +21,23 @@ export default function AllCategoriesPage({ categoryObj, onUpdate }) {
 
   return (
     <>
-      <CategoryForm refresh={refresh} />
       <h2>Categories</h2>
       <Table striped bordered hover>
         <tbody>
           {
             category?.map((categories) => (
               <tr>
-                <td> <Button>Edit</Button> <Button variant="danger" onClick={deleteSingleCategory}>Delete</Button> </td>
-                <Link href={`/posts/category/${categories.id}`} passHref>
-                  <td>{categories.label}</td>
-                </Link>
+                <td> <Button>Edit</Button> <Button variant="danger" onClick={() => deleteCategory(categories.id).then(() => refresh())}>Delete</Button>
+                </td>
+                <div className="categories">
+                  {`${categories.label}`}
+                </div>
               </tr>
             ))
           }
         </tbody>
       </Table>
+      <CategoryForm refresh={refresh} />
     </>
   );
 }
-
-AllCategoriesPage.propTypes = {
-  categoryObj: PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string,
-  }).isRequired,
-  onUpdate: PropTypes.func.isRequired,
-};
