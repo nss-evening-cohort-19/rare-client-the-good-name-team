@@ -1,4 +1,3 @@
-/* eslint-disable import/no-absolute-path */
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -6,6 +5,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { createPost, updatePost } from '../api/postData';
+import { getAllCategories } from '../api/categoryData';
 
 const initialState = {
   user_id: null,
@@ -19,15 +19,28 @@ const initialState = {
 
 export default function PostForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
+  const [categories, setCategories] = useState([]);
   const router = useRouter();
+  const [input, setInput] = useState(initialState);
+
+  const getCategoryData = () => {
+    if (obj.id) {
+      setInput(obj);
+    }
+    getAllCategories().then((catData) => setCategories(catData));
+  };
 
   useEffect(() => {
     if (obj.id)setFormInput(obj);
+    getCategoryData();
   }, [obj]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
+    if (name === 'category_id') {
+      // eslint-disable-next-line no-const-assign
+      value = Number(value);
+    }
     setFormInput((prevState) => ({
       ...prevState,
       [name]: value,
@@ -58,6 +71,16 @@ export default function PostForm({ obj }) {
       <FloatingLabel controlId="floatingInput1" label="Content" className="mb-3">
         <Form.Control type="text" placeholder="Content" name="content" value={formInput.content} onChange={handleChange} required />
       </FloatingLabel>
+      <Form.Label>Category</Form.Label>
+      <FloatingLabel controlId="floatingSelect" label="Category">
+        <Form.Select aria-label="Category" name="categoryId" onChange={handleChange} className="mb-3" required>
+          <option value="">Select a Category</option>
+          {categories?.map((category) => (
+            <option key={category.id} selected={category.id === input.category_id} value={category.id}>{category.label}</option>
+          ))}
+        </Form.Select>
+      </FloatingLabel>
+      <Form.Label>Tags</Form.Label>
       <Button type="submit">{obj.id ? 'Update' : 'Create'} Post</Button>
     </Form>
   );

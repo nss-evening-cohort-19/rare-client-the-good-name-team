@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { createCategory } from '../api/categoryData';
+import { createCategory, updateCategory } from '../api/categoryData';
 
 const initialState = {
   label: '',
@@ -28,14 +28,18 @@ function CategoryForm({ categoryObj, refresh }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = {
-      ...formInput,
-    };
-    console.warn(payload);
-    createCategory(payload).then(() => {
-      refresh();
-      setFormInput(initialState);
-    });
+    if (categoryObj.id) {
+      updateCategory(formInput).then(() => refresh());
+    } else {
+      const payload = {
+        ...formInput,
+      };
+      console.warn(payload);
+      createCategory(payload).then(() => {
+        refresh();
+        setFormInput(initialState);
+      });
+    }
   };
 
   return (
@@ -51,9 +55,7 @@ function CategoryForm({ categoryObj, refresh }) {
           required
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
-        Create
-      </Button>
+      <Button type="submit">{categoryObj.id ? 'Update' : 'Create'} Category</Button>
     </Form>
   );
 }
